@@ -19,22 +19,22 @@ class BlogTest(TestCase):
             author=self.user
         )
 
-    def test_string_representation(self):
+    def test_string_representation(self) -> None:
         post = Post(title='A simple title')
         self.assertEqual(str(post), post.title)
 
-    def test_post_content(self):
+    def test_post_content(self) -> None:
         self.assertEqual(f'{self.post.title}', 'A good title')
         self.assertEqual(f'{self.post.author}', 'test')
         self.assertEqual(f'{self.post.body}', 'Nice body content')
 
-    def test_post_list_view(self):
+    def test_post_list_view(self) -> None:
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Nice body content')
         self.assertTemplateUsed(response, 'home.html')
 
-    def test_post_detail_view(self):
+    def test_post_detail_view(self) -> None:
         response = self.client.get('/post/1/')
         no_response = self.client.get('/post/10000/')
         self.assertEqual(response.status_code, 200)
